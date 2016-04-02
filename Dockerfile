@@ -15,7 +15,7 @@ RUN  wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python3
 RUN  pip3 install --no-cache-dir notebook ipywidgets pandoc
 RUN apk add --no-cache --virtual=curl
 
-RUN  apk del build-dependencies gcc ca-certificates g++ python3-dev
+# TODO: RUN  apk del build-dependencies gcc ca-certificates g++ python3-dev
 
 RUN echo "#!/bin/sh\npython3 -m pandoc $@" > /usr/bin/pandoc && chmod +x /usr/bin/pandoc
 
