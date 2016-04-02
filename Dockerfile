@@ -36,8 +36,11 @@ RUN \
 
 RUN \
   ipython install-nbextension https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/master/nbextensions/usability/dragdrop/main.js
-
+  
 ADD examples /notebook
+ADD notebook /bin
+RUN chmod +x /bin/notebook
+WORKDIR /notebook
 
-CMD \
-  ["jupyter", "notebook", "--ip", "0.0.0.0", "/notebook"]
+ENTRYPOINT ["/bin/notebook"]
+CMD ["--ip", "0.0.0.0"]
