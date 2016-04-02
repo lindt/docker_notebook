@@ -2,6 +2,7 @@ FROM alpine
 MAINTAINER think@hotmail.de
 
 # TODO: combine steps
+RUN apk update
 RUN apk add --no-cache python3
 RUN apk add --no-cache --virtual=build-dependencies
 RUN apk add --no-cache --virtual=ca-certificates
@@ -36,8 +37,21 @@ RUN \
 
 RUN \
   ipython install-nbextension https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/master/nbextensions/usability/dragdrop/main.js
-  
+
 ADD examples /notebook
+
+RUN apk add --no-cache --virtual=git
+
+RUN \
+  git clone https://github.com/ipython/ipython.git /examples && \
+  mv /examples/examples /notebook/examples && \
+  rm -rf /examples
+
+RUN \
+  git clone https://github.com/ipython/ipywidgets.git /examples && \
+  mv /examples/examples /notebook/widget_examples && \
+  rm -rf /examples
+
 ADD notebook /bin
 RUN chmod +x /bin/notebook
 WORKDIR /notebook
