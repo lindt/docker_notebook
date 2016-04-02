@@ -43,4 +43,4 @@ RUN chmod +x /bin/notebook
 WORKDIR /notebook
 
 ENTRYPOINT ["/bin/notebook"]
-CMD ["--ip", "0.0.0.0"]
+CMD ["--ip", "0.0.0.0", "--NotebookApp.default_url=notebooks/Index.ipynb"]

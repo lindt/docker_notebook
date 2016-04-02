@@ -1,4 +1,4 @@
 #!/bin/sh
 
-jupyter notebook $@
+jupyter notebook -y --no-browser $@
 
