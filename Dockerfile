@@ -29,6 +29,12 @@ RUN \
   echo '$([IPython.events]).on("app_initialized.NotebookApp", function () { IPython.load_extensions('notify'); });' >> $(ipython locate)/profile_default/static/custom/custom.js
 
 RUN \
+  apk add --no-cache git && \
+  mkdir -p ~/.jupyter && ipython profile create default && \
+  git clone https://github.com/damianavila/RISE.git && \
+  cd RISE && python3 setup.py install && cd .. && rm -rf RISE
+
+RUN \
   ipython install-nbextension https://raw.githubusercontent.com/ipython-contrib/IPython-notebook-extensions/master/nbextensions/usability/dragdrop/main.js
 
 ADD examples /notebook
